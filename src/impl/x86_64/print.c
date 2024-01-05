@@ -80,6 +80,17 @@ void print_char(char character)
     col++;
 }
 
+void print_backspace()
+{
+    col--;
+    if(col<=0)
+    {
+        col = 0;
+    }
+    print_char(' ');
+    col--;
+}
+
 void print_str(char* str)
 {
     for(size_t i =0;1;i++)
@@ -92,6 +103,17 @@ void print_str(char* str)
         print_char(character);
     }
 }
+
+void print_error(char* msg)
+{
+    uint8_t cached_color = color;
+    print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_RED);
+    print_char('\n');
+    print_str("[VIAX_ERR] ");
+    print_str(msg);
+    color = cached_color;
+}
+
 
 void print_set_color(uint8_t foreground,uint8_t background)
 {
