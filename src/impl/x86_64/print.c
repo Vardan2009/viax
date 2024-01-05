@@ -55,6 +55,8 @@ void print_clear()
    {
     clear_row(i);
    }
+   row = 0;
+   col = 0;
 }
 
 void print_char(char character)
@@ -98,6 +100,21 @@ void print_str(char* str)
         char character = (uint8_t)str[i];
         if(character == '\0')
         {
+            print_newline();
+            return;
+        }
+        print_char(character);
+    }
+}
+
+void print_str_end(char* str,char end)
+{
+    for(size_t i =0;1;i++)
+    {
+        char character = (uint8_t)str[i];
+        if(character == '\0')
+        {
+            print_char(end);
             return;
         }
         print_char(character);
@@ -108,8 +125,7 @@ void print_error(char* msg)
 {
     uint8_t cached_color = color;
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_RED);
-    print_char('\n');
-    print_str("[VIAX_ERR] ");
+    print_str_end("[VIAX_ERR]",' ');
     print_str(msg);
     color = cached_color;
 }
