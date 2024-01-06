@@ -7,16 +7,4 @@ struct Command
     char* example;
 };
 
-struct Command commands[]
-{
-    {
-        "HELP",
-        "Shows info about commands",
-        "HELP",
-    },
-    {
-        "ECHO",
-        "Echoes out given text",
-        "ECHO <TEXT>",
-    }
-}
+extern struct Command commands[];

@@ -18,3 +18,21 @@ int strcmp(char* str1, char* str2) {
         return 1;  // str2 is shorter than str1
     }
 }
+
+void splitString(char* str, char delimiter, char** result, int* resultSize) {
+    int index = 0;
+    *resultSize = 0;
+
+    // Handle the case where there's no delimiter in the string
+    result[index++] = str;
+    (*resultSize)++;
+
+    while (*str != '\0') {
+        if (*str == delimiter) {
+            *str = '\0';
+            result[index++] = str + 1;
+            (*resultSize)++;
+        }
+        str++;
+    }
+}

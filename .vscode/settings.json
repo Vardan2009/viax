@@ -3,6 +3,9 @@
     "files.associations": {
         "print.h": "c",
         "keyboard.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "commands.h": "c",
+        "lib.h": "c",
+        "stddef.h": "c"
     }
 }
