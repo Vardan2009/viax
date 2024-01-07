@@ -36,3 +36,13 @@ void splitString(char* str, char delimiter, char** result, int* resultSize) {
         str++;
     }
 }
+char* tolowercase(char* s) {
+      while (*s != '\0') {
+        if (*s >= 'A' && *s <= 'Z') {
+            // Convert uppercase to lowercase by adding the ASCII offset
+            *s = *s + ('a' - 'A');
+        }
+        // Move to the next character in the string
+        ++s;
+    }
+}

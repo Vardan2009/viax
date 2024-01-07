@@ -36,18 +36,19 @@ void parse_command(char* input)
    char* splitParts[100];
    int resultSize;
    splitString(input, ' ', splitParts, &resultSize);
-   if(strcmp(splitParts[0],"INFO") == 0)
+   tolowercase(splitParts[0]);
+   if(strcmp(splitParts[0],"info") == 0)
    {
       info();
    }
-   else if(strcmp(splitParts[0],"ECHO") == 0)
+   else if(strcmp(splitParts[0],"echo") == 0)
    {
       for (int i = 1; i < resultSize; i++) {
         print_str_end(splitParts[i],' ');
       }
       print_str("\0");
    }
-   else if(strcmp(splitParts[0],"CLS") == 0)
+   else if(strcmp(splitParts[0],"cls") == 0)
    {
       print_clear();
    }
@@ -69,7 +70,7 @@ void viax_kernel_main()
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_BLACK);
     char* input = scanstring();
     if(strcmp(input,"") ==0) continue;
-    else if(strcmp(input,"EXIT") == 0) return;
+    else if(strcmp(tolowercase(input),"exit") == 0) return;
     else parse_command(input);
    }
 }
