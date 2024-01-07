@@ -9,5 +9,3 @@ RUN apt-get install -y grub-common
 
 VOLUME /root/env
 WORKDIR /root/env
-
-#docker run --rm -it -v C:\Users\petro\OneDrive\Desktop\Projects\viax\buildenv:/root/env viax-buildenv
