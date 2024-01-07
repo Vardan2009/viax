@@ -7,4 +7,5 @@ struct Command
     char* example;
 };
 
+extern int commands_len;
 extern struct Command commands[];

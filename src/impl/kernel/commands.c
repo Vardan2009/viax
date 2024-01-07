@@ -2,16 +2,33 @@
 #include "print.h" 
 #include "commands.h"
 
+
+int commands_len = 5;
 struct Command commands[] =
 {
     {
         "HELP",
         "Shows info about commands",
-        "HELP",
+        "Additional Parameters:\nhelp <cmdName>",
     },
     {
         "ECHO",
         "Echoes out given text",
-        "ECHO <TEXT>",
+        "Usage: ECHO <TEXT>",
+    },
+    {
+        "INFO",
+        "Shows OS Info",
+        "Additional Parameters:\ninfo ver"
+    },
+    {
+        "OFF",
+        "Shutdowns PC",
+        "Usage: OFF"
+    },
+    {
+        "REBOOT",
+        "Reboots PC",
+        "Usage: REBOOT"
     }
 };
