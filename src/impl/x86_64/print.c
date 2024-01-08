@@ -33,20 +33,20 @@ void clear_row(size_t row)
 void print_newline()
 {
     col = 0;
-    if(row<NUM_ROWS-1)
+    if(row < NUM_ROWS - 1)
     {
         row++;
         return;
     }
-    for(size_t row =1;row<NUM_ROWS;row++)
+    for(size_t r = 1; r < NUM_ROWS; r++)
     {
-        for(size_t col =1;col<NUM_COLS;col++)
+        for(size_t c = 0; c < NUM_COLS; c++)
         {
-            struct Char character = buffer[col+NUM_COLS*row];
-            buffer[col+NUM_COLS*(row-1)] = character;
+            struct Char character = buffer[c + NUM_COLS * r];
+            buffer[c + NUM_COLS * (r - 1)] = character;
         }
     }
-    clear_row(NUM_COLS-1);
+    clear_row(NUM_ROWS - 1);
 }
 
 void print_clear()

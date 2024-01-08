@@ -1,4 +1,6 @@
 global long_mode_start
+global shutdownasm
+global rebootasm
 extern viax_kernel_main
 section .text
 bits 64
@@ -15,14 +17,13 @@ long_mode_start:
 
     hlt
 
-shutdown:
-    ; ACPI shutdown
-    mov ax, 0x530E
-    mov bx, 0x0001
-    int 0x15
+shutdownasm:
+    mov eax, 0x0           ; AH=0 means shutdown
+    mov ebx, 0x0           ; BX=0 means power off
+    int 0x16 
     ret
 
-reboot:
+rebootasm:
     ; ACPI reboot
     mov ax, 0x5307
     mov bx, 0x0001

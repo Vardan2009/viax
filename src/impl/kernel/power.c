@@ -1,13 +1,13 @@
 #include "power.h"
 
+extern int shutdownasm();
+extern int rebootasm();
+
+
 void shutdown() {
-    asm volatile(
-        "call shutdown\n"
-    );
+  shutdownasm();
 }
 
 void reboot() {
-    asm volatile(
-        "call reboot\n"
-    );
+   rebootasm();
 }
