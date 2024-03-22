@@ -3,7 +3,7 @@
 #include "keyboard.h"
 
 
-#define MAX_STRING_SIZE 100
+#define MAX_STRING_SIZE 30
 
 int shifted = 0;
 
