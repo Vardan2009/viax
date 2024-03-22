@@ -106,7 +106,7 @@ void cmd_cls(char* args[100],int args_len)
     print_clear();
 }
 
-int commands_len =5;
+int commands_len =6;
 struct Command commands[] =
 {
     {
