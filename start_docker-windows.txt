@@ -1,4 +1,4 @@
-//This docker command is for PowerShell Only!
+# This docker command is for PowerShell Only!
 docker run --rm -it -v "${pwd}:/root/env" viax-buildenv
 make build-x86_64
 exit

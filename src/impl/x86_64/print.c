@@ -1,6 +1,5 @@
 #include "print.h"
 
-
 const static size_t NUM_COLS = 80;
 const static size_t NUM_ROWS = 25;
 
@@ -21,6 +20,20 @@ struct Char empty = (struct Char){
     character: ' ',
     color:PRINT_COLOR_WHITE,
 };
+
+void outb(uint16_t port, uint8_t value) {
+    asm volatile("outb %0, %1" : : "a"(value), "Nd"(port));
+}
+
+void move_cursor() {
+    uint16_t position = row * NUM_COLS + col;
+
+    outb(0x3D4, 0x0F);
+    outb(0x3D5, (uint8_t)(position & 0xFF));
+
+    outb(0x3D4, 0x0E);
+    outb(0x3D5, (uint8_t)((position >> 8) & 0xFF));
+}
 
 void clear_row(size_t row)
 {
@@ -57,6 +70,7 @@ void print_clear()
    }
    row = 0;
    col = 0;
+   move_cursor();
 }
 
 void print_char(char character)
@@ -80,6 +94,7 @@ void print_char(char character)
         color:color,
     };
     col++;
+    move_cursor();
 }
 
 void print_backspace()
@@ -91,6 +106,7 @@ void print_backspace()
     }
     print_char(' ');
     col--;
+    move_cursor();
 }
 
 void print_str(char* str)

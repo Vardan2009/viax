@@ -2,6 +2,9 @@
 
 #include <stdint.h>
 #include <stddef.h>
+
+
+
 enum {
     PRINT_COLOR_BLACK = 0,
 	PRINT_COLOR_BLUE = 1,
@@ -21,6 +24,8 @@ enum {
 	PRINT_COLOR_WHITE = 15,
 };
 
+void outb(uint16_t port, uint8_t value);
+void move_cursor();
 void print_clear();
 void print_char(char ch);
 void print_str_end(char* str,char end);
