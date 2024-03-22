@@ -145,11 +145,20 @@ void print_error(char* msg)
 {
     uint8_t cached_color = color;
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_RED);
-    print_str_end("[VIAX_ERR]"," ");
+    print_str_end("[ERR]","");
     print_str(msg);
     color = cached_color;
 }
 
+void print_error_add(char* msg,char* additional)
+{
+    uint8_t cached_color = color;
+    print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_RED);
+    print_str_end("[ERR]","");
+    print_str_end(msg,"");
+    print_str(additional);
+    color = cached_color;
+}
 
 void print_set_color(uint8_t foreground,uint8_t background)
 {

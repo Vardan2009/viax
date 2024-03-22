@@ -1,4 +1,5 @@
 #include "lib.h"
+#define MAX_STRING_SIZE 100
 
 int strcmp(char* str1, char* str2) {
     while (*str1 != '\0' && *str2 != '\0') {
@@ -17,24 +18,6 @@ int strcmp(char* str1, char* str2) {
     } else {
         return 1;  // str2 is shorter than str1
     }
-}
-
-char* strcat(char* a, char* b) {
-    char* ptr = a;
-
-    while (*ptr != '\0') {
-        ptr++;
-    }
-   
-    while (*b != '\0') {
-        *ptr = *b;
-        ptr++;
-        b++;
-    }
-
-    *ptr = '\0';
-    
-    return a;
 }
 
 void splitString(char* str, char delimiter, char** result, int* resultSize) {

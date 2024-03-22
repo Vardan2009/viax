@@ -36,7 +36,7 @@ void parse_command(char* input)
    }
    if(executed ==0)
    {
-      print_error(strcat("No such command: ",cmd));
+      print_error_add("No such command:",cmd);
    }
 
 }
@@ -44,6 +44,7 @@ void parse_command(char* input)
 void viax_kernel_main()
 {
    print_clear();
+   cmd_info();
    print_str("Welcome to the VIAX Operating System!");
    while(1)
    {
