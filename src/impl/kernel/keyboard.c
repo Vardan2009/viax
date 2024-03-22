@@ -3,7 +3,6 @@
 #include "keyboard.h"
 
 
-#define MAX_STRING_SIZE 30
 
 int shifted = 0;
 
@@ -71,6 +70,7 @@ struct Key scanchar() {
 int isShifted = 0;
 char* scanstring() {
     char* result = "";
+
     if (result == NULL) {
         print_error("MEMORY ALLOCATION ERROR AT SCANSTRING");
         return NULL;

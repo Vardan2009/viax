@@ -123,14 +123,18 @@ void print_str(char* str)
     }
 }
 
-void print_str_end(char* str,char end)
+void print_str_end(char* str,char* end)
 {
     for(size_t i =0;1;i++)
     {
         char character = (uint8_t)str[i];
         if(character == '\0')
         {
-            print_char(end);
+            for(size_t i = 0;1;i++)
+            {
+                print_char((uint8_t)end[i]);
+                if((uint8_t)end[i] == '\0') break;
+            }
             return;
         }
         print_char(character);
@@ -141,7 +145,7 @@ void print_error(char* msg)
 {
     uint8_t cached_color = color;
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_RED);
-    print_str_end("[VIAX_ERR]",' ');
+    print_str_end("[VIAX_ERR]"," ");
     print_str(msg);
     color = cached_color;
 }

@@ -19,6 +19,24 @@ int strcmp(char* str1, char* str2) {
     }
 }
 
+char* strcat(char* a, char* b) {
+    char* ptr = a;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+   
+    while (*b != '\0') {
+        *ptr = *b;
+        ptr++;
+        b++;
+    }
+
+    *ptr = '\0';
+    
+    return a;
+}
+
 void splitString(char* str, char delimiter, char** result, int* resultSize) {
     int index = 0;
     *resultSize = 0;
@@ -36,6 +54,7 @@ void splitString(char* str, char delimiter, char** result, int* resultSize) {
         str++;
     }
 }
+
 char* tolowercase(char* s, char* result) {
     char* originalResult = result;
 

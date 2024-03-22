@@ -2,6 +2,7 @@
 
 #pragma once
 
+#define MAX_STRING_SIZE 100
 
 struct Key {
     char Char;
