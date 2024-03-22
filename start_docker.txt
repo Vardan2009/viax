@@ -1,4 +1,5 @@
-docker run --rm -it -v C:/Users/petro/Documents/GitHub/viax:/root/env viax-buildenv
+//This docker command is for PowerShell Only!
+docker run --rm -it -v "${pwd}:/root/env" viax-buildenv
 make build-x86_64
 exit
 qemu-system-x86_64 -cdrom dist/x86_64/kernel.iso
