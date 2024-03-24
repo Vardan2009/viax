@@ -36,7 +36,7 @@ void parse_command(char* input)
    }
    if(executed ==0)
    {
-      print_error_add("No such command:",cmd);
+      print_error("No such command");
    }
 
 }

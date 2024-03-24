@@ -3,13 +3,31 @@
 #include "commands.h"
 #include "keyboard.h"
 
-char* logo =      " _    _________   _  __\n"
+
+
+
+//bf language
+#define TAPE_SIZE 30000
+
+#define INC_PTR '>'
+#define DEC_PTR '<'
+#define INC_VAL '+'
+#define DEC_VAL '-'
+#define LOOP_START '['
+#define LOOP_END ']'
+#define OUTPUT '.'
+#define INPUT ','
+
+unsigned char tape[TAPE_SIZE] = {0};
+unsigned char *ptr = tape;
+
+const char* logo =" _    _________   _  __\n"
                   "| |  / /  _/   | | |/ /\n"
                   "| | / // // /| | |   / \n"
                   "| |/ // // ___ |/   |  \n"
                   "|___/___/_/  |_/_/|_|  \n";
 
-char* version = "0.5 Alpha";
+const char* version = "0.5 Alpha";
 
 
 void info()
@@ -101,12 +119,67 @@ void cmd_reboot(char* args[100],int args_len)
     reboot();
 }
 
+void cmd_bf(char* args[100],int args_len)
+{
+    char* code = args[1];
+    while (*code) {
+        switch (*code) {
+            case INC_PTR:
+                ++ptr;
+                break;
+            case DEC_PTR:
+                --ptr;
+                break;
+            case INC_VAL:
+                ++(*ptr);
+                break;
+            case DEC_VAL:
+                --(*ptr);
+                break;
+            case OUTPUT:
+                print_char(*ptr);
+                break;
+            case INPUT:
+                *ptr = scanchar().Char;
+                break;
+            case LOOP_START:
+                if (*ptr == 0) {
+                    int loop_count = 1;
+                    while (loop_count != 0) {
+                        ++code;
+                        if (*code == LOOP_START) {
+                            ++loop_count;
+                        } else if (*code == LOOP_END) {
+                            --loop_count;
+                        }
+                    }
+                }
+                break;
+            case LOOP_END:
+                if (*ptr != 0) {
+                    int loop_count = 1;
+                    while (loop_count != 0) {
+                        --code;
+                        if (*code == LOOP_START) {
+                            --loop_count;
+                        } else if (*code == LOOP_END) {
+                            ++loop_count;
+                        }
+                    }
+                }
+                break;
+        }
+        ++code;
+    }
+    print_newline();
+}
+
 void cmd_cls(char* args[100],int args_len)
 {
     print_clear();
 }
 
-int commands_len =6;
+int commands_len =7;
 struct Command commands[] =
 {
     {
@@ -150,5 +223,12 @@ struct Command commands[] =
         "Usage: CLS",
         "cls",
         &cmd_cls
+    },
+    {
+        "BRAINF",
+        "Compiles brainf code",
+        "usage bf <code>",
+        "bf",
+        &cmd_bf
     }
 };

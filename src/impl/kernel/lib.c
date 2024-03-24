@@ -1,5 +1,5 @@
 #include "lib.h"
-#define MAX_STRING_SIZE 100
+
 
 int strcmp(char* str1, char* str2) {
     while (*str1 != '\0' && *str2 != '\0') {

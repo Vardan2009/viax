@@ -100,9 +100,10 @@ void print_char(char character)
 void print_backspace()
 {
     col--;
-    if(col<=0)
+    if(col <= 0)
     {
-        col = 0;
+        col = NUM_COLS;
+        row--;
     }
     print_char(' ');
     col--;

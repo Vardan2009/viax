@@ -6,6 +6,7 @@
         "stdint.h": "c",
         "commands.h": "c",
         "lib.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "main.h": "c"
     }
 }
