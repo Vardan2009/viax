@@ -16,7 +16,6 @@
 
 
 
-
 void parse_command(char* input)
 {
    char* args[100];
@@ -24,21 +23,10 @@ void parse_command(char* input)
    splitString(input, ' ', args, &args_len);
    char cmd[MAX_STRING_SIZE];
    tolowercase(args[0],cmd);
-
-   int executed = 0;
-   for(int i =0;i<commands_len;i++)
-   {
-      if(strcmp(cmd,commands[i].alias) == 0)
-      {
-         executed = 1;
-         commands[i].execute(args,args_len);
-      }
+   struct Command* fcmd = fetch_command_by_alias(cmd);
+   if(fcmd != NULL) {
+      fcmd->execute(args, args_len);
    }
-   if(executed ==0)
-   {
-      print_error("No such command");
-   }
-
 }
 
 void viax_kernel_main()
@@ -49,7 +37,7 @@ void viax_kernel_main()
    while(1)
    {
     print_set_color(PRINT_COLOR_YELLOW,PRINT_COLOR_BLACK);
-    print_str_end("-","$");
+    print_str_end("-$"," ");
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_BLACK);
     char* input = scanstring();
     if(strcmp(input,"") ==0) continue;

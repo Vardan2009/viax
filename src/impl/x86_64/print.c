@@ -1,4 +1,5 @@
 #include "print.h"
+#include <stdint.h>
 
 const static size_t NUM_COLS = 80;
 const static size_t NUM_ROWS = 25;
@@ -133,8 +134,8 @@ void print_str_end(char* str,char* end)
         {
             for(size_t i = 0;1;i++)
             {
-                print_char((uint8_t)end[i]);
                 if((uint8_t)end[i] == '\0') break;
+                print_char((uint8_t)end[i]);
             }
             return;
         }

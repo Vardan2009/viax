@@ -2,7 +2,7 @@
 #include "print.h" 
 #include "commands.h"
 #include "keyboard.h"
-
+#include "power.h"
 
 
 
@@ -24,7 +24,7 @@ unsigned char *ptr = tape;
 const char* logo =" _    _________   _  __\n"
                   "| |  / /  _/   | | |/ /\n"
                   "| | / // // /| | |   / \n"
-                  "| |/ // // ___ |/   |  \n"
+                  "| |/ // // / | |/   |  \n"
                   "|___/___/_/  |_/_/|_|  \n";
 
 const char* version = "0.5 Alpha";
@@ -49,35 +49,25 @@ void cmd_help(char* args[100],int args_len)
          print_str("All avaliable Commands: ");
          for(int i =0;i<commands_len;i++)
          {
-            print_str_end(commands[i].prefix," / ");
+            print_str_end(commands[i].prefix,i==commands_len-1?"":" / ");
          }
          print_str("\nUse help <cmdName> for detailed info about each one");
     }
     else
     {
-        struct Command *selected = NULL;
-        for(int i =0;i<commands_len;i++)
-        {
-           char a[MAX_STRING_SIZE];
-           char b[MAX_STRING_SIZE];
-           tolowercase(commands[i].prefix,a);
-           tolowercase(args[1],b);
-         
-           if(strcmp(a,b) == 0)
-           {
-               selected = &commands[i];
-               break;
-           }
-        }
+        struct Command *selected = fetch_command_by_alias(args[1]);
+       
         if(selected != NULL)
         {
             print_str(selected -> prefix);
             print_str(selected -> description);
             print_str(selected -> example);
-        }
-        else
-        {
-            print_error("FAILED TO FETCH CMD INFO");
+            print_str_end("Aliases:"," ");
+            for(int i =0;i<selected->alias_count;i++)
+            {
+                print_str_end(selected->aliases[i],i==selected->alias_count-1?"":", ");
+            }
+            print_newline();
         }
     }
 }
@@ -109,9 +99,9 @@ void cmd_echo(char* args[100],int args_len)
     print_str("\0");
 }
 
-void cmd_off(char* args[100],int args_len)
+void cmd_halt(char* args[100],int args_len)
 {
-    shutdown();
+    cpu_halt();
 }
 
 void cmd_reboot(char* args[100],int args_len)
@@ -179,6 +169,24 @@ void cmd_cls(char* args[100],int args_len)
     print_clear();
 }
 
+struct Command* fetch_command_by_alias(char* alias)
+{
+   for(int i =0;i<commands_len;i++)
+   {
+      for(int j = 0;j<commands[i].alias_count;j++)
+      {
+         if(strcmp(alias,commands[i].aliases[j]) == 0)
+         {
+          
+            return &commands[i];
+         }
+      }
+   }
+   print_error("No such command");
+   return NULL;
+}
+
+
 int commands_len =7;
 struct Command commands[] =
 {
@@ -186,49 +194,51 @@ struct Command commands[] =
         "HELP",
         "Shows info about commands",
         "Additional Parameters:\nhelp <cmdName>",
-        "help",
+        {"help","explain"},2,
         &cmd_help
     },
     {
         "ECHO",
         "Echoes out given text",
         "Usage: ECHO <TEXT>",
-        "echo",
+        {"echo","out"},2,
         &cmd_echo
     },
     {
         "INFO",
         "Shows OS Info",
-        "Additional Parameters:\ninfo ver",
-        "info",
+        "Additional Parameters:\nver",
+        {"info","viax"},2,
         &cmd_info
     },
     {
-        "OFF",
-        "Shutdowns PC",
-        "Usage: OFF",
-        "off",
-        &cmd_off
+        "HALT",
+        "halts the CPU",
+        "Usage: HALT",
+        {"halt","cpuhalt"},2,
+        &cmd_halt
     },
     {
         "REBOOT",
         "Reboots PC",
         "Usage: REBOOT",
-        "reboot",
+        {"reboot","renew","restart"},3,
         &cmd_reboot
     },
     {
         "CLEAR",
         "Clears Screen",
         "Usage: CLS",
-        "cls",
+        {"cls","clear","clr"},3,
         &cmd_cls
     },
     {
         "BRAINF",
         "Compiles brainf code",
         "usage bf <code>",
-        "bf",
+        {"bf","brainf"},2,
         &cmd_bf
     }
 };
+
+
