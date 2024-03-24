@@ -6,7 +6,7 @@
 
 int shifted = 0;
 
-int keysLength = 74;
+int keysLength = 53;
 struct Key keys[] = {
     {'`', '~', 0x29}, // Backtick
     {'1', '!', 0x02},

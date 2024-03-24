@@ -182,7 +182,7 @@ struct Command* fetch_command_by_alias(char* alias)
          }
       }
    }
-   print_error("No such command");
+   print_error_add("No such command: ",alias);
    return NULL;
 }
 
