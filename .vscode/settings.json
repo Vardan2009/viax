@@ -7,6 +7,7 @@
         "commands.h": "c",
         "lib.h": "c",
         "stddef.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "power.h": "c"
     }
 }
