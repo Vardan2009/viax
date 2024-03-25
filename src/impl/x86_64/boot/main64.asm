@@ -21,7 +21,5 @@ long_mode_start:
 
 start_shutdown:
     ; CPU Halt
-    mov eax, 0x0
-    cpuid
     cli
     hlt
