@@ -33,14 +33,16 @@ void viax_kernel_main()
 {
    print_clear();
    cmd_info();
-   print_str("Welcome to the VIAX Operating System!");
+   print_str("Welcome to the VIAX Operating System!\nUse 'help' for command list");
    while(1)
    {
     print_set_color(PRINT_COLOR_YELLOW,PRINT_COLOR_BLACK);
     print_str_end("-$"," ");
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_BLACK);
-    char* input = scanstring();
-    if(strcmp(input,"") ==0) continue;
+    char* rawinput = scanstring();
+    char input[MAX_STRING_SIZE];
+    strip_whitespace(rawinput,input);
+    if(strcmp(input,"") ==0 || input[0] == ':') continue;
     else parse_command(input);
    }
 }

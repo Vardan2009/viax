@@ -1,6 +1,40 @@
 #include "lib.h"
 
 
+int is_whitespace(char c) {
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
+}
+
+void strip_whitespace(char* str, char* result) {
+   
+    while (*str && is_whitespace(*str)) {
+        str++;
+    }
+
+    if (*str == '\0') {
+        *result = '\0';
+        return;
+    }
+
+   
+    const char *end = str;
+    while (*end) {
+        end++;
+    }
+    end--;
+
+    
+    while (end > str && is_whitespace(*end)) {
+        end--;
+    }
+    
+    
+    while (str <= end) {
+        *result++ = *str++;
+    }
+    *result = '\0'; 
+}
+
 void reverse(char *str, int length) {
     int start = 0;
     int end = length - 1;

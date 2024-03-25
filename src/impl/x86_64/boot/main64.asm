@@ -12,11 +12,7 @@ long_mode_start:
     mov es,ax
     mov fs,ax
     mov gs,ax
-
-
-
     call viax_kernel_main
-
     hlt
 
 start_shutdown:
