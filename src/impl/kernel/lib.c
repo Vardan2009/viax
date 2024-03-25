@@ -1,6 +1,46 @@
 #include "lib.h"
 
 
+void reverse(char *str, int length) {
+    int start = 0;
+    int end = length - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+void int_to_string(int num, char *str) {
+    int i = 0;
+    int isNegative = 0;
+
+    // Handle negative numbers
+    if (num < 0) {
+        isNegative = 1;
+        num = -num;
+    }
+
+    // Process individual digits
+    while (num != 0) {
+        int rem = num % 10;
+        str[i++] = rem + '0';
+        num = num / 10;
+    }
+
+    // Add negative sign if necessary
+    if (isNegative)
+        str[i++] = '-';
+
+    // Null-terminate the string
+    str[i] = '\0';
+
+    // Reverse the string
+    reverse(str, i);
+}
+
 int strcmp(char* str1, char* str2) {
     while (*str1 != '\0' && *str2 != '\0') {
         if (*str1 != *str2) {

@@ -3,7 +3,7 @@
 #include "commands.h"
 #include "keyboard.h"
 #include "power.h"
-
+#include "cpu.h"
 
 
 //bf language
@@ -169,6 +169,11 @@ void cmd_cls(char* args[100],int args_len)
     print_clear();
 }
 
+void cmd_sysfetch(char* args[100],int args_len)
+{
+    detect_cpu();
+}
+
 struct Command* fetch_command_by_alias(char* alias)
 {
    for(int i =0;i<commands_len;i++)
@@ -187,7 +192,7 @@ struct Command* fetch_command_by_alias(char* alias)
 }
 
 
-int commands_len =7;
+int commands_len =8;
 struct Command commands[] =
 {
     {
@@ -235,9 +240,16 @@ struct Command commands[] =
     {
         "BRAINF",
         "Compiles brainf code",
-        "usage bf <code>",
+        "Usage: BF <code>",
         {"bf","brainf"},2,
         &cmd_bf
+    },
+    {
+        "SYSFETCH",
+        "Fetches system info",
+        "Usage: SYSFETCH",
+        {"sysfetch"},1,
+        &cmd_sysfetch
     }
 };
 
