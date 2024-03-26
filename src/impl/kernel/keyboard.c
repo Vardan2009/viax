@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include "print.h"
 #include "keyboard.h"
+#include "lib.h"
 
 
 
@@ -22,7 +23,7 @@ struct Key keys[] = {
     {'-', '_', 0x0C},
     {'=', '+', 0x0D},
     {'\b', '\b', 0x0E}, // Backspace
-    {'\t', '\t', 0x0F}, // Tab
+    {'  ', '    ', 0x0F}, // Tab
     {'q', 'Q', 0x10},
     {'w', 'W', 0x11},
     {'e', 'E', 0x12},
@@ -63,6 +64,7 @@ struct Key keys[] = {
 
 
 
+
 uint8_t inb(uint16_t port) {
     uint8_t data;
     asm volatile ("inb %1, %0" : "=a"(data) : "d"(port));
@@ -88,6 +90,7 @@ uint8_t get_scancode() {
 
     return scancode;
 }
+
 struct Key get_char_from_code(uint8_t code) {
     for (size_t i = 0; i < keysLength; ++i) {
         if (keys[i].Code == code) {
@@ -104,6 +107,81 @@ struct Key scanchar() {
     return e;
 }
 int isShifted = 0;
+
+
+char command_history [MAX_HISTORY_LENGTH][MAX_STRING_SIZE];
+int history_length = 0;
+
+
+//similar to scanstring(), but with history support
+char* scancmd() {
+    char alloc[MAX_STRING_SIZE] = "";
+    char* result = alloc;
+    if (result == NULL) {
+        print_error("MEMORY ALLOCATION ERROR AT SCANCMD");
+        return NULL;
+    }
+
+    int size = 0;
+    int startingColumn = getx();
+    int history_index = history_length;
+    while (1) {
+        uint8_t charCode = get_scancode();
+        struct Key e = get_char_from_code(charCode);
+        if(charCode == 0x2A) {
+            isShifted = 1;
+            continue;
+        }
+        if(charCode == 0xAA) {
+            isShifted = 0;
+            continue;
+        }
+        if(charCode == 0xe0) {
+            // Handling command history navigation
+            // Will write this later
+            continue;
+        }
+        char capital = e.Char;
+        char small = e.ShiftedChar;
+        char curch;
+        if(isShifted == 0)
+            curch = capital;
+        else
+            curch = small;
+        if(!curch) continue;
+        if (curch == '\n') {
+            print_char('\n');
+            break;
+        }
+        if (curch == '\b') {
+            if (size > 0) {
+                print_backspace();
+                size--;
+                result[size] = '\0';
+            }
+        } else {
+            if (size < MAX_STRING_SIZE - 1) { 
+                print_char(curch);
+                result[size] = curch;
+                size++;
+            }
+        }
+    }
+    result[size] = '\0';  
+    
+    // Storing command history
+    if (history_length < MAX_HISTORY_LENGTH) {
+        strcpy(command_history[history_length], result);
+        history_length++;
+    } else {
+        // Shift older commands to make space for the new command
+        for (int i = 0; i < MAX_HISTORY_LENGTH - 1; i++) {
+            strcpy(command_history[i], command_history[i + 1]);
+        }
+        strcpy(command_history[MAX_HISTORY_LENGTH - 1], result);
+    }
+    return result;
+}
 char* scanstring() {
     char alloc[MAX_STRING_SIZE] = "";
     char* result = alloc;

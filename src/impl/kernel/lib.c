@@ -1,6 +1,14 @@
 #include "lib.h"
 
 
+void strcpy(char *dest, const char *src) {
+    int i = 0;
+    while ((dest[i] = src[i]) != '\0') {
+        i++;
+    }
+}
+
+
 int is_whitespace(char c) {
     return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
 }
@@ -50,6 +58,7 @@ void reverse(char *str, int length) {
 void int_to_string(int num, char *str) {
     int i = 0;
     int isNegative = 0;
+    
 
     // Handle negative numbers
     if (num < 0) {

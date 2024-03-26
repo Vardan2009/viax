@@ -174,6 +174,17 @@ void cmd_sysfetch(char* args[100],int args_len)
     detect_cpu();
 }
 
+void cmd_history(char* args[100],int args_len)
+{
+    for(int i =0;i<history_length;i++)
+    {
+        char* istr[MAX_STRING_SIZE];
+        int_to_string(i,istr);
+        print_str_end(istr,": ");
+        print_str(command_history[i]);
+    }
+}
+
 struct Command* fetch_command_by_alias(char* alias)
 {
    for(int i =0;i<commands_len;i++)
@@ -192,7 +203,7 @@ struct Command* fetch_command_by_alias(char* alias)
 }
 
 
-int commands_len =8;
+int commands_len =9;
 struct Command commands[] =
 {
     {
@@ -250,6 +261,13 @@ struct Command commands[] =
         "Usage: SYSFETCH",
         {"sysfetch"},1,
         &cmd_sysfetch
+    },
+    {
+        "HISTORY",
+        "Views command History",
+        "Usage: HISTORY",
+        {"history","hist"},2,
+        &cmd_history
     }
 };
 

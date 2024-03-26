@@ -2,6 +2,8 @@
 #define MAX_STRING_SIZE 100
 
 
+void strcpy(char *dest, const char *src);
+
 int is_whitespace(char c);
 
 void strip_whitespace(char* str,char* result);

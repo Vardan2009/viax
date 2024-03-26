@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define MAX_HISTORY_LENGTH 20
 
 
 enum {
@@ -23,6 +24,13 @@ enum {
 	PRINT_COLOR_YELLOW = 14,
 	PRINT_COLOR_WHITE = 15,
 };
+
+void move(size_t x,size_t y);
+void movex(size_t x);
+void movey(size_t y);
+
+size_t getx();
+size_t gety();
 
 void outb(uint16_t port, uint8_t value);
 void move_cursor();

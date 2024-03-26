@@ -12,8 +12,10 @@ struct Char
 
 
 struct Char* buffer = (struct Char* ) 0xb8000;
+
 size_t col = 0;
 size_t row = 0;
+
 uint8_t color = PRINT_COLOR_WHITE | PRINT_COLOR_BLACK << 4;
 
 
@@ -21,6 +23,34 @@ struct Char empty = (struct Char){
     character: ' ',
     color:PRINT_COLOR_WHITE,
 };
+
+void move(size_t x,size_t y)
+{
+    col = x;
+    row = y;
+    move_cursor();
+}
+
+void movex(size_t x)
+{
+    col = x;
+    move_cursor();
+}
+
+void movey(size_t y)
+{
+    row = y;
+    move_cursor();
+}
+
+size_t getx(){
+    return col;
+}
+
+size_t gety(){
+    return row;
+}
+
 
 void outb(uint16_t port, uint8_t value) {
     asm volatile("outb %0, %1" : : "a"(value), "Nd"(port));

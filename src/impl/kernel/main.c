@@ -1,5 +1,5 @@
 //VIAX Operating System Kernel
-//Writeen by Vardan Petrosyan
+//Written by Vardan Petrosyan
 // 1/6/24 //
 
 //HELLO C!
@@ -35,9 +35,9 @@ void viax_kernel_main()
    while(1)
    {
     print_set_color(PRINT_COLOR_YELLOW,PRINT_COLOR_BLACK);
-    print_str_end("-$"," ");
+    print_str_end("$:"," ");
     print_set_color(PRINT_COLOR_WHITE,PRINT_COLOR_BLACK);
-    char* rawinput = scanstring();
+    char* rawinput = scancmd();
     char input[MAX_STRING_SIZE];
     strip_whitespace(rawinput,input);
     // any input starting with a colon is a comment
