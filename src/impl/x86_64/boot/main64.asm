@@ -1,5 +1,5 @@
 global long_mode_start
-global start_shutdown
+global halt_cpu_asm
 extern viax_kernel_main
 
 section .text
@@ -15,7 +15,7 @@ long_mode_start:
     call viax_kernel_main
     hlt
 
-start_shutdown:
+halt_cpu_asm:
     ; CPU Halt
     cli
     hlt

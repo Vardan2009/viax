@@ -17,6 +17,6 @@
 #define check_flag(flags, n) ((flags) & bit(n))
 
 
-extern void start_shutdown();
+extern void cpu_halt();
 void cpu_halt();
 void reboot();

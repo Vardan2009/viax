@@ -14,8 +14,6 @@
 #define MAX_STRING_SIZE 100
 
 
-
-
 void parse_command(char* input)
 {
    char* args[100];
@@ -42,6 +40,7 @@ void viax_kernel_main()
     char* rawinput = scanstring();
     char input[MAX_STRING_SIZE];
     strip_whitespace(rawinput,input);
+    // any input starting with a colon is a comment
     if(strcmp(input,"") ==0 || input[0] == ':') continue;
     else parse_command(input);
    }

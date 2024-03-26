@@ -16,7 +16,7 @@ uint8_t inb_c(uint16_t port) {
 void cpu_halt()
 {
   print_str("CPU Halted");
-  start_shutdown();
+  halt_cpu_asm();
 }
 
 void reboot()
