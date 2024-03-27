@@ -107,6 +107,16 @@ int strcmp(char* str1, char* str2) {
     }
 }
 
+int strcmp_partial(const char *s1, const char *s2, size_t n) {
+    for (size_t i = 0; i < n; ++i) {
+        if (s1[i] != s2[i])
+            return (unsigned char)s1[i] - (unsigned char)s2[i];
+        if (s1[i] == '\0')  // Reached the end of either string
+            return 0;
+    }
+    return 0; // Strings are equal up to n characters
+}
+
 void splitString(char* str, char delimiter, char** result, int* resultSize) {
     int index = 0;
     *resultSize = 0;
@@ -142,4 +152,40 @@ char* tolowercase(char* s, char* result) {
     *result = '\0'; // Null-terminate the result string
 
     return originalResult;
+}
+
+char* touppercase(char* s, char* result) {
+    char* originalResult = result;
+
+    while (*s != '\0') {
+        if (*s >= 'a' && *s <= 'z') {
+            *result = *s - 32;
+        } else {
+            *result = *s;
+        }
+
+        ++s;
+        ++result;
+    }
+
+    *result = '\0'; // Null-terminate the result string
+
+    return originalResult;
+}
+
+void memcpy(void *dest, void *src, size_t n) {
+    char *csrc = (char *)src;
+    char *cdest = (char *)dest;
+
+    for (size_t i = 0; i < n; i++) {
+        cdest[i] = csrc[i];
+    }
+}
+
+void *memset(void *s, int c, size_t n) {
+    unsigned char *p = s;
+    while (n-- > 0) {
+        *p++ = (unsigned char)c;
+    }
+    return s;
 }
