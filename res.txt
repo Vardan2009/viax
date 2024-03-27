@@ -1,0 +1,1 @@
+Keyboard Scancodes: https://kbdlayout.info/kbdusx/scancodes
