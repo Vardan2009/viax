@@ -40,6 +40,7 @@ check_cpuid:
 	cmp eax, ecx
 	je .no_cpuid
 	ret
+
 .no_cpuid:
 	mov al, "C"
 	jmp error
@@ -56,6 +57,7 @@ check_long_mode:
 	jz .no_long_mode
 	
 	ret
+	
 .no_long_mode:
 	mov al, "L"
 	jmp error
@@ -70,8 +72,8 @@ setup_page_tables:
 	mov [page_table_l3], eax
 
 	mov ecx, 0 ; counter
-.loop:
 
+.loop:
 	mov eax, 0x200000 ; 2MiB
 	mul ecx
 	or eax, 0b10000011 ; present, writable, huge page

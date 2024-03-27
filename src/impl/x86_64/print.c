@@ -28,19 +28,19 @@ void move(size_t x,size_t y)
 {
     col = x;
     row = y;
-    move_cursor();
+    update_cursor_position();
 }
 
 void movex(size_t x)
 {
     col = x;
-    move_cursor();
+    update_cursor_position();
 }
 
 void movey(size_t y)
 {
     row = y;
-    move_cursor();
+    update_cursor_position();
 }
 
 size_t getx(){
@@ -56,7 +56,7 @@ void outb(uint16_t port, uint8_t value) {
     asm volatile("outb %0, %1" : : "a"(value), "Nd"(port));
 }
 
-void move_cursor() {
+void update_cursor_position() {
     uint16_t position = row * NUM_COLS + col;
 
     outb(0x3D4, 0x0F);
@@ -101,7 +101,7 @@ void print_clear()
    }
    row = 0;
    col = 0;
-   move_cursor();
+   update_cursor_position();
 }
 
 void print_char(char character)
@@ -125,7 +125,7 @@ void print_char(char character)
         color:color,
     };
     col++;
-    move_cursor();
+    update_cursor_position();
 }
 
 void print_backspace()
@@ -138,7 +138,7 @@ void print_backspace()
     }
     print_char(' ');
     col--;
-    move_cursor();
+    update_cursor_position();
 }
 
 void print_str(char* str)

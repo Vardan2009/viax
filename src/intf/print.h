@@ -35,7 +35,7 @@ size_t getx();
 size_t gety();
 
 void outb(uint16_t port, uint8_t value);
-void move_cursor();
+void update_cursor_position();
 void print_clear();
 void print_newline();
 void print_char(char ch);
