@@ -1,8 +1,8 @@
 #include "print.h"
 #include <stdint.h>
 
-const static size_t NUM_COLS = 80;
-const static size_t NUM_ROWS = 25;
+size_t NUM_COLS = 80;
+size_t NUM_ROWS = 25;
 
 struct Char
 {

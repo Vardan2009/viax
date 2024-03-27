@@ -5,6 +5,8 @@
 
 #define MAX_HISTORY_LENGTH 20
 
+extern size_t NUM_COLS;
+extern size_t NUM_ROWS;
 
 enum {
     PRINT_COLOR_BLACK = 0,

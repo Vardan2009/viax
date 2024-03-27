@@ -8,7 +8,6 @@ void strcpy(char *dest, const char *src) {
     }
 }
 
-
 int is_whitespace(char c) {
     return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
 }
@@ -59,6 +58,11 @@ void int_to_string(int num, char *str) {
     int i = 0;
     int isNegative = 0;
     
+    if(num == 0)
+    {
+        strcpy(str,"0");
+        return;
+    }
 
     // Handle negative numbers
     if (num < 0) {

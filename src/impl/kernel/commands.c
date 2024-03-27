@@ -176,12 +176,26 @@ void cmd_sysfetch(char* args[100],int args_len)
 
 void cmd_history(char* args[100],int args_len)
 {
-    for(int i =0;i<history_length;i++)
+    if(args_len == 1)
     {
-        char* istr[MAX_STRING_SIZE];
-        int_to_string(i,istr);
-        print_str_end(istr,": ");
-        print_str(command_history[i]);
+        for(int i =0;i<history_length;i++)
+        {
+            char* istr[MAX_STRING_SIZE];
+            int_to_string(i,istr);
+            print_str_end(istr,": ");
+            print_str(command_history[i]);
+        }
+    }
+    else
+    {
+        if(strcmp(args[1],"clear") == 0)
+        {
+            for(int i =0;i<history_length;i++)
+            {
+               strcpy(command_history[i],"");
+            }
+            history_length = 0;
+        }
     }
 }
 

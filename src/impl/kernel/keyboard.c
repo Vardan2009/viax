@@ -23,7 +23,7 @@ struct Key keys[] = {
     {'-', '_', 0x0C},
     {'=', '+', 0x0D},
     {'\b', '\b', 0x0E}, // Backspace
-    {'  ', '    ', 0x0F}, // Tab
+    {' ', ' ', 0x0F}, // Tab
     {'q', 'Q', 0x10},
     {'w', 'W', 0x11},
     {'e', 'E', 0x12},
@@ -136,9 +136,36 @@ char* scancmd() {
             isShifted = 0;
             continue;
         }
-        if(charCode == 0xe0) {
-            // Handling command history navigation
-            // Will write this later
+        if(charCode == 0x48 || charCode == 0x50) {
+            if(charCode == 0x48)
+                history_index--;
+            if(charCode == 0x50)
+                history_index++;
+            if(history_index<0)
+            {
+                history_index = 0;
+            }
+            if(history_index>=history_length)
+            {
+                history_index = history_length-1;
+            }
+            movex(startingColumn);
+            for(int i =startingColumn;i<NUM_COLS;i++)
+            {
+                movex(i);
+                print_char(' ');
+            }
+            movex(startingColumn);
+            int newsize = 0;
+            for(int i =0;1;i++)
+            {
+                if(command_history[history_index][i] == '\0') break;
+                newsize++;
+                print_char(command_history[history_index][i]);
+            }
+            result = alloc;
+            size = newsize;
+            strcpy(result, command_history[history_index]);
             continue;
         }
         char capital = e.Char;
