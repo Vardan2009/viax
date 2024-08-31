@@ -5,5 +5,4 @@ VIAX is a simple command-line OS written in Assembly and C.
 - Command line interface
 - Simple programming language interpreter
 
-# Future goals
-- Filesystem
+### NOTE: This was a short and small project just for fun and it is not in development, some of the code is also poorly structured
